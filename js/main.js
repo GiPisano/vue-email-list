@@ -5,36 +5,35 @@ createApp({
         return {
             mails: [],
             loading: false,
-        }
+            numMail: 0,
+        };
     },
 
     methods: {
-        generateMail(){
+        generateMail() {
             const mailRequests = [];
-            
+
             for (let i = 1; i <= 10; i++) {
                 const request = axios.get('https://flynn.boolean.careers/exercises/api/random/mail')
                     .then((response) => {
-                        return response.data.response;
-                    });
-                    this.loading = true;
-                    mailRequests.push(request);
-            }
+                        this.loading = true;
+                        this.mails.push(response.data.response);
+                        this.numMail++;
 
-            Promise.all(mailRequests)
-                .then((mails) => {
-                    this.mails = mails;
-                    this.loading = false;
-                });
+                        if (this.numMail == 10) {
+                            this.loading = false;
+                        }
+                    });
+
+                mailRequests.push(request);
+            }
         }
     },
 
     created() {
         this.generateMail();
     }
-
-}).mount('#app')
-
+}).mount('#app');
 
 
 
