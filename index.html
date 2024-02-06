@@ -36,7 +36,7 @@
             <span><i class="fa-solid fa-hourglass-start fa-spin fa-xl"></i></span>
         </div>
         <div class="container-mails">
-            <p v-for="mail in mails" class="mail">{{ mail }}</p>
+            <p v-show="mails.length == 10" v-for="mail in mails" class="mail">{{ mail }}</p>
         </div>
     </div>
 
